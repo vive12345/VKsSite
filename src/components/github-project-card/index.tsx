@@ -28,7 +28,7 @@ const GithubProjectCard = ({
     for (let index = 0; index < limit; index++) {
       array.push(
         <div className="card shadow-lg compact bg-base-100" key={index}>
-          <div className="flex justify-between flex-col p-8 h-full w-full">
+          <div className="flex justify-between flex-col p-8 h-full w-full ">
             <div>
               <div className="flex items-center">
                 <span>
@@ -76,12 +76,12 @@ const GithubProjectCard = ({
   const renderProjects = () => {
     return githubProjects.map((item, index) => (
       <a
-        className="card shadow-lg compact bg-base-100 cursor-pointer"
+        className="card shadow-lg compact bg-transparent border border-slate-700/30 cursor-pointer transition-all duration-300 hover:bg-gradient-to-br hover:from-blue-500/20 hover:to-purple-600/30 backdrop-blur-sm"
         href={item.html_url}
         key={index}
         onClick={(e) => {
           e.preventDefault();
-
+          // bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500
           try {
             if (googleAnalyticsId) {
               ga.event('Click project', {
@@ -138,8 +138,10 @@ const GithubProjectCard = ({
       <div className="col-span-1 lg:col-span-2">
         <div className="grid grid-cols-2 gap-6">
           <div className="col-span-2">
-            <div className="card compact bg-base-100 shadow bg-opacity-40">
-              <div className="card-body">
+            {/* <div className="card compact bg-base-100 shadow bg-opacity-40"> */}
+            <div className="bg-transparent ">
+              {/* <div className="card-body"> */}
+              <div className="p-5">
                 <div className="mx-3 flex items-center justify-between mb-2">
                   <h5 className="card-title">
                     {loading ? (

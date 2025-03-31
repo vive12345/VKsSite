@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import { formatDistance } from 'date-fns';
+import Navbar from './navbar';
 import {
   CustomError,
   GENERIC_ERROR,
@@ -30,6 +31,8 @@ import ExternalProjectCard from './external-project-card';
 import BlogCard from './blog-card';
 import Footer from './footer';
 import PublicationCard from './publication-card';
+import Starfield from './starfield';
+import AboutMe from './about-me';
 
 /**
  * Renders the GitProfile component.
@@ -182,6 +185,7 @@ const GitProfile = ({ config }: { config: Config }) => {
   return (
     <HelmetProvider>
       <div className="fade-in h-screen">
+        <Starfield />
         {error ? (
           <ErrorPage
             status={error.status}
@@ -194,7 +198,15 @@ const GitProfile = ({ config }: { config: Config }) => {
               googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
               appliedTheme={theme}
             />
-            <div className={`p-4 lg:p-10 min-h-full ${BG_COLOR}`}>
+            <Navbar
+              github={sanitizedConfig.github}
+              social={sanitizedConfig.social}
+              loading={loading}
+            />
+           
+            {/* <div className={`p-4 lg:p-10 min-h-full ${BG_COLOR}`}>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 rounded-box"> */}
+            <div className="p-4 lg:p-10 min-h-full bg-opacity-70 bg-base-300">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 rounded-box">
                 <div className="col-span-1">
                   <div className="grid grid-cols-1 gap-6">
@@ -206,6 +218,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                         themeConfig={sanitizedConfig.themeConfig}
                       />
                     )}
+                    <div id="about"></div>
                     <AvatarCard
                       profile={profile}
                       loading={loading}
@@ -246,6 +259,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                 </div>
                 <div className="lg:col-span-2 col-span-1">
                   <div className="grid grid-cols-1 gap-6">
+                  <AboutMe />
                     {sanitizedConfig.projects.github.display && (
                       <GithubProjectCard
                         header={sanitizedConfig.projects.github.header}

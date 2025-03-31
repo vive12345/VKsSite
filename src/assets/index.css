@@ -90,3 +90,25 @@ svg {
     opacity: 1;
   }
 }
+/* Add these styles to src/assets/index.css */
+
+/* Create a semi-transparent card effect for better readability with the starfield */
+.card {
+  backdrop-filter: blur(4px);
+}
+
+/* Ensure content is above the starfield */
+.card-body, .avatar, .btn {
+  position: relative;
+  z-index: 1;
+}
+
+/* Adjust the starfield container for better positioning */
+canvas {
+  display: block;
+}
+
+/* Add a subtle glow to some elements to enhance the space theme */
+.avatar img, .card-title {
+  filter: drop-shadow(0 0 2px rgba(138, 133, 255, 0.3));
+}
