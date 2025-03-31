@@ -113,7 +113,7 @@ const CONFIG = {
     'Swagger UI',
     'Jira',
     'Agile',
-  ],
+],
   experiences: [
     {
       company: 'Arizona State University',

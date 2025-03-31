@@ -1,321 +1,172 @@
-// // import { useState } from 'react';
-// // import { AiFillGithub } from 'react-icons/ai';
-// // import { FaLinkedin } from 'react-icons/fa';
-// // import { RiMenuLine, RiCloseLine } from 'react-icons/ri';
-// // import { SanitizedGithub, SanitizedSocial } from '../../interfaces/sanitized-config';
-// // import { BG_COLOR } from '../../constants';
+// src/components/navbar/navbar.tsx
+import { useState } from 'react';
+import { RiMenuLine, RiCloseLine } from 'react-icons/ri';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { SanitizedGithub, SanitizedSocial } from '../../interfaces/sanitized-config';
 
-// // interface NavbarProps {
-// //   github: SanitizedGithub;
-// //   social: SanitizedSocial;
-// //   loading: boolean;
-// // }
+interface NavbarProps {
+  github: SanitizedGithub;
+  social: SanitizedSocial;
+  loading: boolean;
+}
 
-// // const Navbar = ({ github, social, loading }: NavbarProps) => {
-// //   const [isMenuOpen, setIsMenuOpen] = useState(false);
+const Navbar = ({ github, social, loading }: NavbarProps) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-// //   const toggleMenu = () => {
-// //     setIsMenuOpen(!isMenuOpen);
-// //   };
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-// //   return (
-// //     <nav className={`sticky top-0 z-50 ${BG_COLOR} shadow-md`}>
-// //       <div className="container mx-auto px-4 py-3">
-// //         <div className="flex justify-between items-center">
-// //           {/* Logo/Brand */}
-// //           <div className="flex items-center">
-// //             <a 
-// //               href="#" 
-// //               className="text-lg font-bold text-base-content opacity-80"
-// //             >
-// //               {loading ? 'Loading...' : `${github.username}'s Portfolio`}
-// //             </a>
-// //           </div>
+  // Navigation items
+  const navItems = [
+    { label: 'HOME', link: '#' },
+    { label: 'ABOUT', link: '#about'},
+    { label: 'PORTFOLIO', link: '#projects' },
+    { label: 'TESTIMONIALS', link: '#testimonials' },
+    { label: 'EXPERIENCE', link: '#experience' },
+    { label: 'EDUCATION', link: '#education' },
+    { label: 'ACHIEVEMENTS', link: '#achievements' },
+    { label: 'OUTSIDE WORK', link: '#work' },
+    { label: 'CONTACT', link: '#contact' },
+  ];
 
-// //           {/* Desktop Navigation */}
-// //           <div className="hidden md:flex items-center space-x-6">
-// //             <a href="#about" className="text-base-content opacity-70 hover:opacity-100 transition-opacity">
-// //               About
-// //             </a>
-// //             <a href="#skills" className="text-base-content opacity-70 hover:opacity-100 transition-opacity">
-// //               Skills
-// //             </a>
-// //             <a href="#projects" className="text-base-content opacity-70 hover:opacity-100 transition-opacity">
-// //               Projects
-// //             </a>
-// //             <a href="#experience" className="text-base-content opacity-70 hover:opacity-100 transition-opacity">
-// //               Experience
-// //             </a>
-// //             {/* Social Links */}
-// //             <div className="flex items-center space-x-3">
-// //               {github.username && (
-// //                 <a
-// //                   href={`https://github.com/${github.username}`}
-// //                   target="_blank"
-// //                   rel="noreferrer"
-// //                   className="text-base-content opacity-70 hover:opacity-100"
-// //                 >
-// //                   <AiFillGithub className="w-5 h-5" />
-// //                 </a>
-// //               )}
-// //               {social?.linkedin && (
-// //                 <a
-// //                   href={`https://www.linkedin.com/in/${social.linkedin}`}
-// //                   target="_blank"
-// //                   rel="noreferrer"
-// //                   className="text-base-content opacity-70 hover:opacity-100"
-// //                 >
-// //                   <FaLinkedin className="w-5 h-5" />
-// //                 </a>
-// //               )}
-// //             </div>
-// //           </div>
-
-// //           {/* Mobile menu button */}
-// //           <div className="md:hidden flex items-center">
-// //             <button 
-// //               onClick={toggleMenu}
-// //               className="text-base-content opacity-70 hover:opacity-100 focus:outline-none"
-// //             >
-// //               {isMenuOpen ? (
-// //                 <RiCloseLine className="w-6 h-6" />
-// //               ) : (
-// //                 <RiMenuLine className="w-6 h-6" />
-// //               )}
-// //             </button>
-// //           </div>
-// //         </div>
-
-// //         {/* Mobile Navigation */}
-// //         {isMenuOpen && (
-// //           <div className="md:hidden pt-4 pb-2">
-// //             <div className="flex flex-col space-y-3">
-// //               <a 
-// //                 href="#about" 
-// //                 onClick={toggleMenu}
-// //                 className="text-base-content opacity-70 hover:opacity-100 py-2 transition-opacity"
-// //               >
-// //                 About
-// //               </a>
-// //               <a 
-// //                 href="#skills" 
-// //                 onClick={toggleMenu}
-// //                 className="text-base-content opacity-70 hover:opacity-100 py-2 transition-opacity"
-// //               >
-// //                 Skills
-// //               </a>
-// //               <a 
-// //                 href="#projects" 
-// //                 onClick={toggleMenu}
-// //                 className="text-base-content opacity-70 hover:opacity-100 py-2 transition-opacity"
-// //               >
-// //                 Projects
-// //               </a>
-// //               <a 
-// //                 href="#experience" 
-// //                 onClick={toggleMenu}
-// //                 className="text-base-content opacity-70 hover:opacity-100 py-2 transition-opacity"
-// //               >
-// //                 Experience
-// //               </a>
-// //               {/* Mobile Social Links */}
-// //               <div className="flex items-center space-x-3 py-2">
-// //                 {github.username && (
-// //                   <a
-// //                     href={`https://github.com/${github.username}`}
-// //                     target="_blank"
-// //                     rel="noreferrer"
-// //                     className="text-base-content opacity-70 hover:opacity-100"
-// //                   >
-// //                     <AiFillGithub className="w-5 h-5" />
-// //                   </a>
-// //                 )}
-// //                 {social?.linkedin && (
-// //                   <a
-// //                     href={`https://www.linkedin.com/in/${social.linkedin}`}
-// //                     target="_blank"
-// //                     rel="noreferrer"
-// //                     className="text-base-content opacity-70 hover:opacity-100"
-// //                   >
-// //                     <FaLinkedin className="w-5 h-5" />
-// //                   </a>
-// //                 )}
-// //               </div>
-// //             </div>
-// //           </div>
-// //         )}
-// //       </div>
-// //     </nav>
-// //   );
-// // };
-
-// // export default Navbar;
-// import { useState } from 'react';
-// import { AiFillGithub } from 'react-icons/ai';
-// import { FaLinkedin, FaStar } from 'react-icons/fa';
-// import { RiMenuLine, RiCloseLine } from 'react-icons/ri';
-// import { SiRocket } from 'react-icons/si';
-// import { SanitizedGithub, SanitizedSocial } from '../../interfaces/sanitized-config';
-
-// interface NavbarProps {
-//   github: SanitizedGithub;
-//   social: SanitizedSocial;
-//   loading: boolean;
-// }
-
-// const Navbar = ({ github, social, loading }: NavbarProps) => {
-//   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-//   const toggleMenu = () => {
-//     setIsMenuOpen(!isMenuOpen);
-//   };
-
-//   return (
-//     <nav className="sticky top-0 z-50 backdrop-blur-md bg-opacity-80">
-//       <div className="container mx-auto px-4 py-4">
-//         <div className="flex justify-between items-center">
-//           {/* Logo/Brand */}
-//           <div className="flex items-center">
-//             <SiRocket className="text-purple-400 mr-2 h-6 w-6" />
-//             <a 
-//               href="#" 
-//               className="text-lg font-bold text-white flex items-center"
-//             >
-//               {loading ? 'Loading...' : (
-//                 <>
-//                   <span className="mr-1">{github.username}'s</span>
-//                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">Portfolio</span>
-//                 </>
-//               )}
-//             </a>
-//           </div>
-
-//           {/* Desktop Navigation */}
-//           <div className="hidden md:flex items-center space-x-8">
-//             <a href="#about" className="text-white opacity-80 hover:opacity-100 hover:text-purple-300 transition-all flex items-center">
-//               <FaStar className="mr-1 h-3 w-3" />
-//               <span>About</span>
-//             </a>
-//             <a href="#skills" className="text-white opacity-80 hover:opacity-100 hover:text-purple-300 transition-all flex items-center">
-//               <FaStar className="mr-1 h-3 w-3" />
-//               <span>Skills</span>
-//             </a>
-//             <a href="#projects" className="text-white opacity-80 hover:opacity-100 hover:text-purple-300 transition-all flex items-center">
-//               <FaStar className="mr-1 h-3 w-3" />
-//               <span>Projects</span>
-//             </a>
-//             <a href="#experience" className="text-white opacity-80 hover:opacity-100 hover:text-purple-300 transition-all flex items-center">
-//               <FaStar className="mr-1 h-3 w-3" />
-//               <span>Experience</span>
-//             </a>
+  return (
+    <nav className="fixed top-0 left-0 w-96 h-full bg-transparent backdrop-blur-sm flex flex-col items-center py-8 shadow-lg z-40">
+      {/* Profile Photo */}
+      <div className="avatar mb-6">
+        <div className="w-36 h-36 rounded-full overflow-hidden ring-4 ring-indigo-500 ring-offset-2 ring-offset-base-100 shadow-lg">
+          <img 
+            src={`https://github.com/${github.username}.png`} 
+            alt={`${github.username}`}
+            className="object-cover w-full h-full"
+          />
+        </div>
+      </div>
+      
+      {/* Name and Title */}
+      <h1 className="text-2xl font-bold text-base-content">
+        {loading ? 'Loading...' : github.username}
+      </h1>
+      <h2 className="text-indigo-400 mb-10 text-sm"> SOFTWARE ENGINEERING</h2>
+      
+      {/* Navigation Links */}
+      <div className="w-full px-4">
+        <ul className="space-y-2 text-base-content text-center">
+          {navItems.map((item, index) => (
+            <li key={index}>
+              <a 
+                href={item.link} 
+                className={`block py-2 ${item.active ? 'text-indigo-400' : 'hover:text-indigo-400'} transition-colors`}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      
+      {/* Social Links */}
+      <div className="mt-auto mb-6 flex justify-center space-x-6">
+        <a
+          href={`https://github.com/${github.username}`}
+          target="_blank"
+          rel="noreferrer"
+          className="text-base-content hover:text-indigo-400 transition-colors"
+          aria-label="GitHub"
+        >
+          <FaGithub size={24} />
+        </a>
+        
+        {social?.linkedin && (
+          <a
+            href={`https://www.linkedin.com/in/${social.linkedin}`}
+            target="_blank"
+            rel="noreferrer"
+            className="text-base-content hover:text-indigo-400 transition-colors"
+            aria-label="LinkedIn"
+          >
+            <FaLinkedin size={24} />
+          </a>
+        )}
+      </div>
+      
+      {/* Mobile Menu Button - Only visible on small screens */}
+      <div className="md:hidden fixed top-4 right-4">
+        <button 
+          onClick={toggleMenu}
+          className="text-base-content bg-base-300 rounded-full p-2"
+          aria-label="Toggle menu"
+        >
+          {isMenuOpen ? (
+            <RiCloseLine className="w-6 h-6" />
+          ) : (
+            <RiMenuLine className="w-6 h-6" />
+          )}
+        </button>
+      </div>
+      
+      {/* Mobile Navigation - Slides in from the side on small screens */}
+      {isMenuOpen && (
+        <div className="md:hidden fixed inset-0 bg-base-300 bg-opacity-95 z-50 flex flex-col items-center pt-16 animate-fadeIn">
+          <button 
+            onClick={toggleMenu}
+            className="absolute top-4 right-4 text-base-content"
+            aria-label="Close menu"
+          >
+            <RiCloseLine className="w-6 h-6" />
+          </button>
+          
+          <div className="avatar mb-4">
+            <div className="w-24 h-24 rounded-full border-2 border-indigo-500/50">
+              <img 
+                src={`https://github.com/${github.username}.png`} 
+                alt={`${github.username}`}
+              />
+            </div>
+          </div>
+          
+          <h1 className="text-xl font-bold mb-1">{loading ? 'Loading...' : github.username}</h1>
+          <h2 className="text-indigo-400 mb-6 text-sm">PRODUCT MANAGER</h2>
+          
+          <ul className="space-y-4 text-center w-full px-6">
+            {navItems.map((item, index) => (
+              <li key={index}>
+                <a 
+                  href={item.link} 
+                  onClick={toggleMenu}
+                  className={`block py-2 ${item.active ? 'text-indigo-400' : 'hover:text-indigo-400'} transition-colors`}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          
+          <div className="mt-8 flex space-x-6">
+            <a
+              href={`https://github.com/${github.username}`}
+              target="_blank"
+              rel="noreferrer"
+              className="text-base-content hover:text-indigo-400 transition-colors"
+            >
+              <FaGithub size={24} />
+            </a>
             
-//             {/* Social Links */}
-//             <div className="flex items-center space-x-4 ml-4">
-//               {github.username && (
-//                 <a
-//                   href={`https://github.com/${github.username}`}
-//                   target="_blank"
-//                   rel="noreferrer"
-//                   className="text-white hover:text-purple-300 transition-colors"
-//                 >
-//                   <AiFillGithub className="w-5 h-5" />
-//                 </a>
-//               )}
-//               {social?.linkedin && (
-//                 <a
-//                   href={`https://www.linkedin.com/in/${social.linkedin}`}
-//                   target="_blank"
-//                   rel="noreferrer"
-//                   className="text-white hover:text-purple-300 transition-colors"
-//                 >
-//                   <FaLinkedin className="w-5 h-5" />
-//                 </a>
-//               )}
-//             </div>
-//           </div>
+            {social?.linkedin && (
+              <a
+                href={`https://www.linkedin.com/in/${social.linkedin}`}
+                target="_blank"
+                rel="noreferrer"
+                className="text-base-content hover:text-indigo-400 transition-colors"
+              >
+                <FaLinkedin size={24} />
+              </a>
+            )}
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+};
 
-//           {/* Mobile menu button */}
-//           <div className="md:hidden flex items-center">
-//             <button 
-//               onClick={toggleMenu}
-//               className="text-white focus:outline-none"
-//               aria-label="Toggle menu"
-//             >
-//               {isMenuOpen ? (
-//                 <RiCloseLine className="w-6 h-6" />
-//               ) : (
-//                 <RiMenuLine className="w-6 h-6" />
-//               )}
-//             </button>
-//           </div>
-//         </div>
-
-//         {/* Mobile Navigation */}
-//         {isMenuOpen && (
-//           <div className="md:hidden pt-6 pb-4 animate-fadeIn">
-//             <div className="flex flex-col space-y-4">
-//               <a 
-//                 href="#about" 
-//                 onClick={toggleMenu}
-//                 className="text-white opacity-80 hover:opacity-100 hover:text-purple-300 transition-all py-2 flex items-center"
-//               >
-//                 <FaStar className="mr-2 h-3 w-3" />
-//                 <span>About</span>
-//               </a>
-//               <a 
-//                 href="#skills" 
-//                 onClick={toggleMenu}
-//                 className="text-white opacity-80 hover:opacity-100 hover:text-purple-300 transition-all py-2 flex items-center"
-//               >
-//                 <FaStar className="mr-2 h-3 w-3" />
-//                 <span>Skills</span>
-//               </a>
-//               <a 
-//                 href="#projects" 
-//                 onClick={toggleMenu}
-//                 className="text-white opacity-80 hover:opacity-100 hover:text-purple-300 transition-all py-2 flex items-center"
-//               >
-//                 <FaStar className="mr-2 h-3 w-3" />
-//                 <span>Projects</span>
-//               </a>
-//               <a 
-//                 href="#experience" 
-//                 onClick={toggleMenu}
-//                 className="text-white opacity-80 hover:opacity-100 hover:text-purple-300 transition-all py-2 flex items-center"
-//               >
-//                 <FaStar className="mr-2 h-3 w-3" />
-//                 <span>Experience</span>
-//               </a>
-              
-//               {/* Mobile Social Links */}
-//               <div className="flex items-center space-x-4 py-2">
-//                 {github.username && (
-//                   <a
-//                     href={`https://github.com/${github.username}`}
-//                     target="_blank"
-//                     rel="noreferrer"
-//                     className="text-white hover:text-purple-300 transition-colors"
-//                   >
-//                     <AiFillGithub className="w-5 h-5" />
-//                   </a>
-//                 )}
-//                 {social?.linkedin && (
-//                   <a
-//                     href={`https://www.linkedin.com/in/${social.linkedin}`}
-//                     target="_blank"
-//                     rel="noreferrer"
-//                     className="text-white hover:text-purple-300 transition-colors"
-//                   >
-//                     <FaLinkedin className="w-5 h-5" />
-//                   </a>
-//                 )}
-//               </div>
-//             </div>
-//           </div>
-//         )}
-//       </div>
-//     </nav>
-//   );
-// };
-
-// export default Navbar;
+export default Navbar;
